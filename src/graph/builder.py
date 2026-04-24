@@ -8,10 +8,11 @@ from graph.nodes import (
     trainer_node,
     validator_node,
 )
+from graph.state import AgentState
 
 
 def build_graph():
-    graph = StateGraph(dict)
+    graph = StateGraph(AgentState)
 
     graph.add_node("collector", collector_node)
     graph.add_node("preprocessor", preprocessor_node)

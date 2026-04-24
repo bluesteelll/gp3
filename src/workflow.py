@@ -3,6 +3,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
+from langgraph.prebuilt import create_react_agent
 
 from agents import (
     data_analyzer,
@@ -16,21 +17,22 @@ from agents import (
 load_dotenv()
 
 API_KEY = os.getenv("AIHUBMIX_API_KEY")
-BASE_URL = os.getenv("AIHUBMIX_BASE_URL") 
-PROMPT_DIR = Path(__file__).parents[1] / "system_prompts"
-
-
-def create_agent(meta, temperature=0.0):
-    return ChatOpenAI(
-        model=meta.MODEL,
-        api_key=API_KEY,
-        base_url=BASE_URL,
-        temperature=temperature,
-    )
+BASE_URL = os.getenv("AIHUBMIX_BASE_URL")
+ROOT = Path(__file__).parents[1]
+PROMPT_DIR = ROOT / "system_prompts"
 
 
 def load_prompt(name):
     return (PROMPT_DIR / f"{name}.md").read_text(encoding="utf-8")
+
+
+def make_llm(model, temperature=0.0):
+    return ChatOpenAI(
+        model=model,
+        api_key=API_KEY,
+        base_url=BASE_URL,
+        temperature=temperature,
+    )
 
 
 METAS = [
@@ -42,5 +44,14 @@ METAS = [
     model_reviser,
 ]
 
-agents = {meta.NAME: create_agent(meta) for meta in METAS}
-prompts = {meta.NAME: load_prompt(meta.NAME) for meta in METAS}
+
+def build_agent(meta):
+    return create_react_agent(
+        model=make_llm(meta.MODEL),
+        tools=meta.TOOLS,
+        prompt=load_prompt(meta.NAME),
+        name=meta.NAME,
+    )
+
+
+agents = {meta.NAME: build_agent(meta) for meta in METAS}
