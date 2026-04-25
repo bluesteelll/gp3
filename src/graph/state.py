@@ -1,4 +1,6 @@
+import operator
 from typing import TypedDict, Annotated, Optional, List, Dict, Any
+
 from langgraph.graph.message import add_messages
 
 
@@ -24,8 +26,8 @@ class AgentState(TypedDict):
 
     next: str
 
-    session_log: List[str]
-    code_outputs: List[str]
+    session_log: Annotated[List[str], operator.add]
+    code_outputs: Annotated[List[str], operator.add]
     notes: Annotated[Dict[str, str], merge_notes]
 
     dataset_path: Optional[str]

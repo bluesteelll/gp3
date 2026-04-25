@@ -5,6 +5,7 @@ from graph.nodes import (
     collector_node,
     preprocessor_node,
     reviser_node,
+    summarizer_node,
     trainer_node,
     validator_node,
 )
@@ -20,6 +21,7 @@ def build_graph():
     graph.add_node("analyzer", analyzer_node)
     graph.add_node("trainer", trainer_node)
     graph.add_node("reviser", reviser_node)
+    graph.add_node("summarizer", summarizer_node)
 
     graph.add_edge(START, "collector")
     graph.add_edge("collector", "preprocessor")
@@ -27,6 +29,7 @@ def build_graph():
     graph.add_edge("validator", "analyzer")
     graph.add_edge("analyzer", "trainer")
     graph.add_edge("trainer", "reviser")
-    graph.add_edge("reviser", END)
+    graph.add_edge("reviser", "summarizer")
+    graph.add_edge("summarizer", END)
 
     return graph.compile()

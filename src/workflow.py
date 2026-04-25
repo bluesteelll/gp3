@@ -11,6 +11,7 @@ from agents import (
     data_preprocessor,
     data_validator,
     model_reviser,
+    summarizer,
     trainer,
 )
 
@@ -42,6 +43,7 @@ METAS = [
     data_analyzer,
     trainer,
     model_reviser,
+    summarizer,
 ]
 
 
