@@ -1,0 +1,57 @@
+===== TRAINING LOG =====
+
+Task Type   : Classification (Binary — Positive review prediction)
+Dataset     : clean.csv  (32,939 rows × 13 columns)
+Target      : Positive  (1 = positive review, 0 = negative)
+Class Ratio : 8.14:1  (positive:negative)
+
+── SPLIT ──────────────────────────────────────────────────────────────────────
+Train : 26,351 rows  (80%)
+Test  : 6,588  rows  (20%)  → saved to processed/test.csv
+Stratified split: YES
+
+── FEATURES ───────────────────────────────────────────────────────────────────
+Text  : combined_text  →  TF-IDF (max_features=20000, ngram_range=(1,2),
+                                   sublinear_tf=True, min_df=3)
+Numeric: review_word_count, helpfulness_ratio, total_votes,
+         helpful_votes, review_year, review_month  →  RobustScaler
+
+── BASELINE COMPARISON (5-fold CV on train) ───────────────────────────────────
+LogisticRegression (C=1.0, balanced)  : Acc=0.9455  F1=0.9689  ROC-AUC=0.9780
+RandomForestClassifier (n=100, bal.)  : Acc=0.9110  F1=0.9524  ROC-AUC=0.9569
+
+→ Logistic Regression selected for tuning.
+
+── HYPERPARAMETER TUNING (3-fold CV, manual grid) ─────────────────────────────
+Grid over C ∈ {0.1, 0.5, 1.0, 5.0, 10.0} × penalty ∈ {l1, l2}:
+  Best: C=5.0, penalty=l2  →  ROC-AUC=0.9791
+
+Grid over TF-IDF max_features × ngram_range:
+  max_feat=10000, ngram=(1,1)  →  ROC-AUC=0.9742
+  max_feat=15000, ngram=(1,2)  →  ROC-AUC=0.9791
+  max_feat=20000, ngram=(1,2)  →  ROC-AUC=0.9797  ← BEST
+
+── FINAL MODEL ────────────────────────────────────────────────────────────────
+Model     : LogisticRegression
+Solver    : liblinear
+C         : 5.0
+Penalty   : l2
+class_weight: balanced
+TF-IDF    : max_features=20000, ngram_range=(1,2), sublinear_tf=True, min_df=3
+Scaler    : RobustScaler (on numeric features)
+
+── TEST SET RESULTS ───────────────────────────────────────────────────────────
+Accuracy  : 0.9595
+Precision : 0.9841  (positive class)
+Recall    : 0.9702  (positive class)
+F1        : 0.9771  (positive class)
+F1 macro  : 0.9010
+ROC-AUC   : 0.9833
+
+Negative class:  Precision=0.78  Recall=0.87  F1=0.82
+Positive class:  Precision=0.98  Recall=0.97  F1=0.98
+
+── NOTES ──────────────────────────────────────────────────────────────────────
+- class_weight='balanced' used to handle 8.14:1 imbalance
+- RobustScaler applied to outlier-heavy numeric columns
+- Model saved as dict artifact: {preprocessor, classifier, feature_cols, target}

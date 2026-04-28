@@ -1,0 +1,129 @@
+{
+  "verdict": "pass",
+  "summary": "Dataset passed all hard-fail checks (32,939 rows, 12 feature columns, 6 categorical columns, 2 text columns). No missing values or duplicate rows detected. Warnings raised for outliers in 5 numeric columns and significant class imbalance (8.14:1 positive-to-negative ratio).",
+  "report_path": "/Users/ialyalin/Desktop/gp3/gp3/data/sessions/2026-04-29_00-15-23/reports/validation.json",
+  "schema": {
+    "row_count": 32939,
+    "total_columns": 13,
+    "target_column": "Positive",
+    "feature_column_count": 12,
+    "feature_columns": [
+      "reviewerID",
+      "asin",
+      "reviewerName",
+      "reviewText",
+      "summary",
+      "helpful_votes",
+      "total_votes",
+      "combined_text",
+      "review_word_count",
+      "helpfulness_ratio",
+      "review_year",
+      "review_month"
+    ],
+    "categorical_column_count": 6,
+    "categorical_columns": [
+      "reviewerID",
+      "asin",
+      "reviewerName",
+      "reviewText",
+      "summary",
+      "combined_text"
+    ],
+    "text_columns": [
+      {
+        "column": "reviewText",
+        "avg_length": 490.2
+      },
+      {
+        "column": "combined_text",
+        "avg_length": 515.7
+      }
+    ],
+    "numeric_columns": [
+      "helpful_votes",
+      "total_votes",
+      "review_word_count",
+      "helpfulness_ratio",
+      "review_year",
+      "review_month"
+    ],
+    "dtypes": {
+      "reviewerID": "object",
+      "asin": "object",
+      "reviewerName": "object",
+      "reviewText": "object",
+      "summary": "object",
+      "helpful_votes": "int64",
+      "total_votes": "int64",
+      "Positive": "int64",
+      "combined_text": "object",
+      "review_word_count": "int64",
+      "helpfulness_ratio": "float64",
+      "review_year": "int64",
+      "review_month": "int64"
+    }
+  },
+  "hard_fail_checks": {
+    "row_count_gte_5000": {
+      "result": "PASS",
+      "value": 32939,
+      "threshold": 5000
+    },
+    "feature_columns_gte_10": {
+      "result": "PASS",
+      "value": 12,
+      "threshold": 10
+    },
+    "categorical_columns_gte_2": {
+      "result": "PASS",
+      "value": 6,
+      "threshold": 2
+    },
+    "text_column_gte_1": {
+      "result": "PASS",
+      "value": 2,
+      "threshold": 1
+    }
+  },
+  "warn_checks": {
+    "missing_values": {
+      "result": "OK",
+      "details": "No missing values found"
+    },
+    "duplicate_rows": {
+      "result": "OK",
+      "details": "No duplicate rows found"
+    },
+    "outliers": {
+      "result": "WARN",
+      "details": {
+        "helpful_votes": 2925,
+        "total_votes": 4697,
+        "review_word_count": 3904,
+        "helpfulness_ratio": 5752,
+        "review_year": 1579
+      }
+    },
+    "class_imbalance": {
+      "result": "WARN",
+      "details": {
+        "Positive_1": 29336,
+        "Positive_0": 3603,
+        "ratio": 8.14,
+        "threshold": 4
+      }
+    }
+  },
+  "issues": [
+    "WARN: Outliers detected via IQR method \u2014 helpful_votes: 2925, total_votes: 4697, review_word_count: 3904, helpfulness_ratio: 5752, review_year: 1579",
+    "WARN: Class imbalance \u2014 Positive:Negative ratio is 8.14:1 (threshold 4:1). Consider oversampling, undersampling, or class-weight adjustments during training."
+  ],
+  "llm_decision": {
+    "decision": "Dataset passed validation",
+    "reason": "All four hard-fail conditions are satisfied: 32,939 rows (\u22655000), 12 feature columns (\u226510), 6 categorical columns (\u22652), and 2 free-text columns (\u22651). No missing values or duplicates were found. Two warnings are logged for outliers in numeric columns and a class imbalance ratio of 8.14:1."
+  },
+  "notes": {
+    "trainer": "Class imbalance is significant (8.14:1 positive-to-negative). Strongly recommend using class_weight='balanced' or applying SMOTE/undersampling before training to avoid a biased model. Also consider robust scaling or clipping for outlier-heavy columns (helpfulness_ratio, total_votes, review_word_count)."
+  }
+}

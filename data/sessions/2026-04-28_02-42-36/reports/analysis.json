@@ -1,0 +1,68 @@
+{
+  "dataset_shape": {
+    "rows": 20000,
+    "columns": 6
+  },
+  "missing_values": {
+    "reviewText": 0,
+    "Positive": 0,
+    "review_length": 0,
+    "word_count": 0,
+    "exclamation_count": 0,
+    "clean_reviewText": 0
+  },
+  "target_distribution": {
+    "1": 15233,
+    "0": 4767
+  },
+  "correlations_with_target": {
+    "Positive": 1.0,
+    "review_length": 0.03325424895301061,
+    "word_count": 0.03427108524171258,
+    "exclamation_count": -0.019155877120115426
+  },
+  "numeric_summary": {
+    "Positive": {
+      "count": 20000.0,
+      "mean": 0.76165,
+      "std": 0.42608491514921876,
+      "min": 0.0,
+      "25%": 1.0,
+      "50%": 1.0,
+      "75%": 1.0,
+      "max": 1.0
+    },
+    "review_length": {
+      "count": 20000.0,
+      "mean": 175.79385,
+      "std": 58.966619415460464,
+      "min": 3.0,
+      "25%": 123.0,
+      "50%": 164.0,
+      "75%": 254.0,
+      "max": 254.0
+    },
+    "word_count": {
+      "count": 20000.0,
+      "mean": 33.94145,
+      "std": 11.21753152650709,
+      "min": 1.0,
+      "25%": 24.0,
+      "50%": 31.0,
+      "75%": 45.0,
+      "max": 61.0
+    },
+    "exclamation_count": {
+      "count": 20000.0,
+      "mean": 0.72505,
+      "std": 2.5649720176974324,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 1.0,
+      "max": 87.0
+    }
+  },
+  "inferred_task": "classification",
+  "inferred_target": "Positive"
+}

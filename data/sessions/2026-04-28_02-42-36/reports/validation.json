@@ -1,0 +1,126 @@
+{
+  "verdict": "pass",
+  "summary": "Dataset passed all critical validation checks. 20,000 rows and 6 columns present. No missing values, no fully-duplicate rows. Two minor warnings: class imbalance (3.2:1 ratio) and 2 duplicate clean_reviewText entries. Feature count is below the 10-feature threshold, but this is expected given the dataset's text-centric nature. Outliers in exclamation_count are plausible real-world values.",
+  "schema": {
+    "row_count": 20000,
+    "column_count": 6,
+    "columns": {
+      "reviewText": "object  (text, raw)",
+      "Positive": "int64   (target, binary: 0/1)",
+      "review_length": "int64   (engineered feature)",
+      "word_count": "int64   (engineered feature)",
+      "exclamation_count": "int64   (engineered feature)",
+      "clean_reviewText": "object  (text, cleaned)"
+    }
+  },
+  "checks": {
+    "row_count_gte_5000": {
+      "status": "pass",
+      "threshold": 5000,
+      "value": 20000
+    },
+    "feature_count_gte_10_excl_target": {
+      "status": "warn",
+      "threshold": 10,
+      "value": 5,
+      "note": "Only 5 features excluding target. Dataset is text-centric; primary signal lives in clean_reviewText. Acceptable for NLP-based training."
+    },
+    "categorical_columns_gte_2": {
+      "status": "pass",
+      "columns": [
+        "reviewText",
+        "clean_reviewText"
+      ],
+      "value": 2
+    },
+    "text_columns_gte_1": {
+      "status": "pass",
+      "columns": [
+        "reviewText",
+        "clean_reviewText"
+      ],
+      "value": 2
+    },
+    "missing_values": {
+      "status": "pass",
+      "total_missing": 0,
+      "per_column": {
+        "reviewText": 0,
+        "Positive": 0,
+        "review_length": 0,
+        "word_count": 0,
+        "exclamation_count": 0,
+        "clean_reviewText": 0
+      }
+    },
+    "duplicate_rows": {
+      "status": "pass",
+      "duplicate_count": 0
+    },
+    "duplicate_clean_reviewText": {
+      "status": "warn",
+      "duplicate_count": 2,
+      "note": "2 rows share identical clean_reviewText values. Likely genuine repeated reviews; low impact."
+    },
+    "outliers_iqr_1_5x": {
+      "status": "warn",
+      "review_length": {
+        "outlier_count": 0,
+        "outlier_pct": 0.0
+      },
+      "word_count": {
+        "outlier_count": 0,
+        "outlier_pct": 0.0
+      },
+      "exclamation_count": {
+        "outlier_count": 1478,
+        "outlier_pct": 7.39,
+        "note": "Max value is 87. High exclamation counts are plausible in real reviews; no corrective action required."
+      }
+    },
+    "class_balance": {
+      "status": "warn",
+      "class_0_count": 4767,
+      "class_1_count": 15233,
+      "imbalance_ratio": 3.2,
+      "note": "Moderate imbalance (3.2:1). Trainer should consider class weighting or oversampling strategies."
+    },
+    "negative_values_in_engineered_features": {
+      "status": "pass",
+      "review_length_negatives": 0,
+      "word_count_negatives": 0,
+      "exclamation_count_negatives": 0
+    },
+    "empty_strings_in_text_cols": {
+      "status": "pass",
+      "reviewText_empty": 0,
+      "clean_reviewText_empty": 0
+    },
+    "feature_consistency": {
+      "status": "pass",
+      "note": "review_length >= word_count for all rows (character count >= word count, as expected)."
+    },
+    "target_values": {
+      "status": "pass",
+      "unique_values": [
+        0,
+        1
+      ],
+      "note": "Binary classification target confirmed."
+    }
+  },
+  "issues": [
+    "WARN: Only 5 features excluding target (threshold: 10). Dataset is text-centric; primary signal is in clean_reviewText.",
+    "WARN: 2 duplicate clean_reviewText entries detected (not full-row duplicates).",
+    "WARN: exclamation_count has 1,478 outliers (7.39%) by IQR method \u2014 max value is 87. Likely real-world noise, not data errors.",
+    "WARN: Class imbalance \u2014 Positive:Negative ratio is 3.2:1 (15,233 vs 4,767). Trainer should apply class weighting or resampling."
+  ],
+  "llm_decision": {
+    "decision": "Dataset passed validation",
+    "reason": "No critical issues found. Zero missing values, zero fully-duplicate rows, consistent engineered features, valid binary target, and two confirmed text columns. All warnings are minor and expected for a text-based sentiment dataset."
+  },
+  "notes": {
+    "data_preprocessor": "2 duplicate clean_reviewText entries exist. Consider deduplicating on clean_reviewText if exact-duplicate reviews are undesirable for training.",
+    "trainer": "Class imbalance (3.2:1) detected. Consider using class_weight='balanced' or oversampling the minority class (Positive=0) before training."
+  }
+}

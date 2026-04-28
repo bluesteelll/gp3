@@ -1,0 +1,276 @@
+{
+  "validation_timestamp": "2026-04-27T20:44:47.256823Z",
+  "dataset_path": "/Users/ialyalin/Desktop/gp3/gp3/data/sessions/2026-04-27_23-38-16/processed/clean.csv",
+  "verdict": "pass",
+  "schema": {
+    "row_count": 5000,
+    "column_count": 11,
+    "columns": [
+      "sepal_length",
+      "sepal_width",
+      "petal_length",
+      "petal_width",
+      "class",
+      "petal_ratio",
+      "sepal_ratio",
+      "petal_area",
+      "petal_length_bin",
+      "sepal_ratio_band",
+      "leaf_shape_index"
+    ],
+    "dtypes": {
+      "sepal_length": "float64",
+      "sepal_width": "float64",
+      "petal_length": "float64",
+      "petal_width": "float64",
+      "class": "object",
+      "petal_ratio": "float64",
+      "sepal_ratio": "float64",
+      "petal_area": "float64",
+      "petal_length_bin": "object",
+      "sepal_ratio_band": "object",
+      "leaf_shape_index": "float64"
+    },
+    "target_column": "class",
+    "feature_count_excl_target": 10,
+    "numeric_feature_count": 8,
+    "categorical_feature_count": 3
+  },
+  "threshold_checks": {
+    "row_count_ge_5000": {
+      "required": 5000,
+      "actual": 5000,
+      "pass": true
+    },
+    "feature_count_ge_10": {
+      "required": 10,
+      "actual": 10,
+      "pass": true
+    },
+    "categorical_cols_ge_2": {
+      "required": 2,
+      "actual": 3,
+      "pass": true
+    },
+    "text_column_present": {
+      "required": 1,
+      "actual": 0,
+      "pass": false,
+      "note": "All string columns are low-cardinality categoricals (\u22643 unique values). No free-form text column exists. This is a dataset characteristic, not a preprocessing error."
+    }
+  },
+  "data_quality": {
+    "missing_values_total": 0,
+    "missing_by_column": {
+      "sepal_length": 0,
+      "sepal_width": 0,
+      "petal_length": 0,
+      "petal_width": 0,
+      "class": 0,
+      "petal_ratio": 0,
+      "sepal_ratio": 0,
+      "petal_area": 0,
+      "petal_length_bin": 0,
+      "sepal_ratio_band": 0,
+      "leaf_shape_index": 0
+    },
+    "duplicate_rows": 0,
+    "class_distribution": {
+      "versicolor": 1700,
+      "setosa": 1666,
+      "virginica": 1634
+    },
+    "class_balance_ratio": 0.9612
+  },
+  "numeric_stats": {
+    "sepal_length": {
+      "mean": 5.844516,
+      "std": 0.825883,
+      "min": 4.285536,
+      "max": 7.920328,
+      "q25": 5.10275,
+      "q50": 5.795537,
+      "q75": 6.402955
+    },
+    "sepal_width": {
+      "mean": 3.059804,
+      "std": 0.436986,
+      "min": 1.991992,
+      "max": 4.406218,
+      "q25": 2.798812,
+      "q50": 3.002302,
+      "q75": 3.38826
+    },
+    "petal_length": {
+      "mean": 3.752562,
+      "std": 1.757606,
+      "min": 0.978464,
+      "max": 6.931483,
+      "q25": 1.577529,
+      "q50": 4.308181,
+      "q75": 5.100765
+    },
+    "petal_width": {
+      "mean": 1.196525,
+      "std": 0.757727,
+      "min": 0.082065,
+      "max": 2.515423,
+      "q25": 0.301619,
+      "q50": 1.305496,
+      "q75": 1.80372
+    },
+    "petal_ratio": {
+      "mean": 4.309842,
+      "std": 2.48681,
+      "min": 2.080319,
+      "max": 15.071819,
+      "q25": 2.807928,
+      "q50": 3.298354,
+      "q75": 4.680225
+    },
+    "sepal_ratio": {
+      "mean": 1.953105,
+      "std": 0.400478,
+      "min": 1.259764,
+      "max": 2.972916,
+      "q25": 1.532617,
+      "q50": 2.032093,
+      "q75": 2.224013
+    },
+    "petal_area": {
+      "mean": 5.769882,
+      "std": 4.687742,
+      "min": -0.000741,
+      "max": 15.959248,
+      "q25": 0.436056,
+      "q50": 5.610832,
+      "q75": 9.695685
+    },
+    "leaf_shape_index": {
+      "mean": 4.309939,
+      "std": 2.49832,
+      "min": 2.109233,
+      "max": 18.528493,
+      "q25": 2.808714,
+      "q50": 3.297473,
+      "q75": 4.708205
+    }
+  },
+  "categorical_stats": {
+    "class": {
+      "unique_values": [
+        "setosa",
+        "versicolor",
+        "virginica"
+      ],
+      "value_counts": {
+        "versicolor": 1700,
+        "setosa": 1666,
+        "virginica": 1634
+      }
+    },
+    "petal_length_bin": {
+      "unique_values": [
+        "long",
+        "medium",
+        "short"
+      ],
+      "value_counts": {
+        "medium": 1905,
+        "short": 1666,
+        "long": 1429
+      }
+    },
+    "sepal_ratio_band": {
+      "unique_values": [
+        "high",
+        "low"
+      ],
+      "value_counts": {
+        "low": 2504,
+        "high": 2496
+      }
+    }
+  },
+  "outliers_iqr": {
+    "sepal_length": {
+      "n_outliers": 0,
+      "pct_outliers": 0.0
+    },
+    "sepal_width": {
+      "n_outliers": 34,
+      "pct_outliers": 0.68
+    },
+    "petal_length": {
+      "n_outliers": 0,
+      "pct_outliers": 0.0
+    },
+    "petal_width": {
+      "n_outliers": 0,
+      "pct_outliers": 0.0
+    },
+    "petal_ratio": {
+      "n_outliers": 553,
+      "pct_outliers": 11.06
+    },
+    "sepal_ratio": {
+      "n_outliers": 0,
+      "pct_outliers": 0.0
+    },
+    "petal_area": {
+      "n_outliers": 0,
+      "pct_outliers": 0.0
+    },
+    "leaf_shape_index": {
+      "n_outliers": 483,
+      "pct_outliers": 9.66
+    }
+  },
+  "high_correlation_pairs": [
+    {
+      "col_a": "petal_length",
+      "col_b": "petal_width",
+      "pearson_r": 0.9625
+    },
+    {
+      "col_a": "petal_length",
+      "col_b": "petal_area",
+      "pearson_r": 0.9579
+    },
+    {
+      "col_a": "petal_width",
+      "col_b": "petal_area",
+      "pearson_r": 0.98
+    },
+    {
+      "col_a": "petal_ratio",
+      "col_b": "leaf_shape_index",
+      "pearson_r": 0.9957
+    }
+  ],
+  "augmentation_noise_assessment": {
+    "method": "Bootstrap with Gaussian noise",
+    "verdict": "ACCEPTABLE",
+    "details": "Per-class mean drift < 0.015 and std ratio 0.99\u20131.00 across all four base features for all three classes. Noise levels faithfully preserve the original Iris distribution.",
+    "negative_petal_area_rows": 1,
+    "negative_petal_area_note": "1 row with petal_area = -0.000741 (floating-point rounding artifact, effectively zero \u2014 negligible)",
+    "petal_ratio_extreme_outliers_gt15": 40,
+    "petal_ratio_note": "40 setosa rows with very small petal_width produce high petal_ratio values; biologically plausible for setosa",
+    "leaf_shape_index_extreme_outliers_gt15": 40
+  },
+  "issues": [],
+  "warnings": [
+    "petal_area: 1 near-zero negative value (-0.000741) \u2014 floating-point noise from augmentation, effectively zero",
+    "petal_ratio: 40 extreme outliers (>15) \u2014 setosa rows with very small petal_width; biologically plausible",
+    "leaf_shape_index: 40 extreme outliers (>15) \u2014 derived from petal_ratio; same root cause",
+    "No free-form text column present \u2014 all string columns are low-cardinality categoricals (class, petal_length_bin, sepal_ratio_band)",
+    "High correlation: petal_ratio \u2194 leaf_shape_index (r=0.9957) \u2014 consider dropping one before training to avoid multicollinearity",
+    "High correlation: petal_width \u2194 petal_area (r=0.98), petal_length \u2194 petal_area (r=0.96), petal_length \u2194 petal_width (r=0.96) \u2014 consider feature selection"
+  ],
+  "notes_for_trainer": {
+    "recommended_feature_selection": "petal_ratio and leaf_shape_index are nearly identical (r=0.9957); drop one. petal_area is highly correlated with petal_length and petal_width; consider dropping.",
+    "encoding_needed": "petal_length_bin and sepal_ratio_band require ordinal or one-hot encoding before training.",
+    "class_balance": "Classes are well-balanced (ratio 0.96); no oversampling needed.",
+    "target_column": "class"
+  }
+}
